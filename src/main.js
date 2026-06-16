@@ -1,20 +1,4 @@
-// export function isValidPassword(password) {
-//     if (password.length >= 8){
-//         return true;
-//     }else if (password.length <= 8){
-//         return false;
-//     }else if (password.length === 0){
-//         return false;
-//     }
-// }
 
-// export function isContains(password){
-//     if (/[A-Z]/.test(password)) {
-//         return true;
-//     }else {
-//         return false;
-//     }
-// }
 
 export function isValidPassword(password) {
     if (password.length == 0) {
