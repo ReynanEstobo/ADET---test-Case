@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculateGrade, isValidPassword } from "../src/main";
+import { calculateGrade, isValidPassword, login } from "../src/main";
 
 describe("PasswordValidator", () => {
   it("Should return true if the password is greater than or equal to 8", () => {
@@ -70,4 +70,67 @@ describe("Grade Calculator", () => {
     // Assert
     expect(result).toBe(5.0);
   });
+});
+
+describe("login", () => {
+  it("should return success message if the email and password is correct", () => {
+    expect(
+      login("juandelacruz@email.com", "Str0ngp@ssword")
+    ).toEqual("Login Successful");
+  });
+
+  it("should throw an error if email do not have @", () => {
+    expect(() => {
+      login("reynangmail.com", "Str0ngp@ssword");
+    }).toThrow("Invalid email");
+  });
+
+  it("should throw an error if email do not have domain", () => {
+    expect(() => {
+      login("reynan@gmail", "Str0ngp@ssword");
+    }).toThrow("Invalid email");
+  });
+
+  it("should throw an error if email is empty", () => {
+    expect(() => {
+      login("", "Str0ngp@ssword");
+    }).toThrow("Invalid email");
+  });
+
+  it("should throw an error if email is null", () => {
+    expect(() => {
+      login(null, "Str0ngp@ssword");
+    }).toThrow("Invalid email");
+  });
+
+  it("should throw and error if password is less than 8 characters", () => {
+    expect(() => {
+      login("juandelacruz@email.com", "Pass1!");
+    }).toThrow("Weak Password");
+  });
+
+  it("should throw an error if password is empty", () => {
+    expect(() => {
+      login("reynan@gmail.com", "");
+    }).toThrow("Weak Password");
+  });
+
+  it("should throw an error if password is null", () => {
+    expect(() => {
+      login("reynan@gmail.com", null);
+    }).toThrow("Weak Password");
+  });
+
+ it("should return warning message when email is incorrect", () => {
+  expect(
+    login("reynan@gmail.com", "Str0ngp@ssword")
+  ).toEqual("Incorrect email or password");
+  });
+
+  it("should return warning message when password is incorrect", () => {
+  expect(
+    login("juandelacruz@email.com", "Wr0ngP@ssword")
+  ).toEqual("Incorrect email or password");
+  });
+
 });
